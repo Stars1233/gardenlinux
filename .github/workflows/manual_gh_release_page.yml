@@ -123,6 +123,7 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
+          ref: '${{ inputs.commit }}'
           submodules: true
       - name: Install python-gardenlinux-lib
         uses: gardenlinux/python-gardenlinux-lib/.github/actions/setup@2352ee1052c79ff0960182507d3472b19689fdf0 # pin@0.10.16
@@ -139,7 +140,8 @@ jobs:
       - name: Download from S3 bucket ${{ secrets.aws_s3_bucket }} for ${{ matrix.flavor }} (${{ matrix.arch }})
         run: |
           commit="$(echo "${{ inputs.commit }}" | cut -c -8)"
-          CNAME="${{ matrix.flavor }}-${{ matrix.arch }}-${{ inputs.version }}-$commit"
+          resolved_cname="$(./build --resolve-cname '${{ matrix.flavor }}-${{ matrix.arch }}-${{ inputs.version }}')"
+          CNAME="$resolved_cname-$commit"
 
           echo "CNAME=$CNAME" | tee -a "$GITHUB_ENV"
 
