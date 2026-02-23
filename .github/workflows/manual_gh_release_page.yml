@@ -25,7 +25,7 @@ jobs:
   # Create new version in GLVD so it has the package list of the new release
   # This is needed for the automatic changelog generation
   glvd:
-    if: ${{ inputs.type }} == 'minor'
+    if: ${{ inputs.type == 'minor' }}
     name: Update GLVD distro list
     runs-on: ubuntu-latest
     env:
@@ -87,7 +87,7 @@ jobs:
       - name: install dependencies for generate_release_note.py script
         run: sudo apt-get update && sudo apt-get install -qy --no-install-recommends python3-boto3
       - name: Install python-gardenlinux-lib
-        uses: gardenlinux/python-gardenlinux-lib/.github/actions/setup@2352ee1052c79ff0960182507d3472b19689fdf0 # pin@0.10.16
+        uses: gardenlinux/python-gardenlinux-lib/.github/actions/setup@19c1b24c01faab81a7fe24713748dd172d00904a # pin@0.10.16
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # pin@v4
         with:
@@ -125,7 +125,7 @@ jobs:
         with:
           submodules: true
       - name: Install python-gardenlinux-lib
-        uses: gardenlinux/python-gardenlinux-lib/.github/actions/setup@2352ee1052c79ff0960182507d3472b19689fdf0 # pin@0.10.16
+        uses: gardenlinux/python-gardenlinux-lib/.github/actions/setup@19c1b24c01faab81a7fe24713748dd172d00904a # pin@0.10.16
       - uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # pin@v4
         with:
           role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
@@ -165,7 +165,7 @@ jobs:
           done
 
   tag_container_as_latest:
-    if: ${{ inputs.type }} == 'minor'
+    if: ${{ inputs.type == 'minor' }}
     uses: ./.github/workflows/tag_latest_container.yml
     with:
       version: ${{ inputs.version }}
