@@ -141,7 +141,7 @@ jobs:
         run: |
           commit="$(echo "${{ inputs.commit }}" | cut -c -8)"
           resolved_cname="$(./build --resolve-cname '${{ matrix.flavor }}-${{ matrix.arch }}-${{ inputs.version }}')"
-          CNAME="$resolved_cname-$commit"
+          CNAME="${resolved_cname%-*}-$commit"
 
           echo "CNAME=$CNAME" | tee -a "$GITHUB_ENV"
 
