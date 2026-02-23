@@ -48,7 +48,7 @@ jobs:
           name: certs
           path: cert/
       - name: Install python-gardenlinux-lib
-        uses: gardenlinux/python-gardenlinux-lib/.github/actions/setup@2352ee1052c79ff0960182507d3472b19689fdf0 # pin@0.10.16
+        uses: gardenlinux/python-gardenlinux-lib/.github/actions/setup@19c1b24c01faab81a7fe24713748dd172d00904a # pin@0.10.16
       - name: Set CNAME
         run: |
           echo "CNAME=$(gl-features-parse --cname ${{ inputs.flavor }}-${{ inputs.arch }} cname)" | tee -a "$GITHUB_ENV"
