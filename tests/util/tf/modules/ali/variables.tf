@@ -66,7 +66,7 @@ variable "provider_vars" {
   description = "Ali specific settings"
 
   type = object({
-    region             = optional(string, "eu-west-1")
+    region             = optional(string, "eu-central-1")
     instance_type      = optional(string)
     boot_mode          = optional(string)
     net_cidr           = optional(string, "10.0.0.0/16")
